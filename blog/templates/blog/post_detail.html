@@ -1,0 +1,52 @@
+{%extends 'blog/base.html'%}
+
+{%block content%}
+ 
+<div class="head-bar">
+<h1>{{post.title}} <br> <small>by {{post.user}}</small> </h1>
+<h6>Added Time : {{post.created}}</h6>
+<a href="{%url 'home'%}">&#8592;Back</a>
+</div>
+    <div class="detail">
+
+            <div class="post-image" >
+                <img id="post-image" src="{{post.image.url}}" alt="" >
+            </div>
+            
+               <div class="articles"  >
+                <h2 style="color:red"> {{post.discription}}</h2>
+                    <p>
+                        
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Dolores eaque quasi, consectetur minus ipsa sequi eos. 
+                        Soluta ipsam blanditiis quam 
+                        mollitia sint 
+                        laboriosam iste enim reiciendis corporis debitis. Minima, hic.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Dolores eaque quasi, consectetur minus ipsa sequi eos. 
+                        Soluta ipsam blanditiis quam 
+                        mollitia sint 
+                        laboriosam iste enim reiciendis corporis debitis. Minima, hic.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Dolores eaque quasi, consectetur minus ipsa sequi eos. 
+                        Soluta ipsam blanditiis quam 
+                        mollitia sint 
+                        laboriosam iste enim reiciendis corporis debitis. Minima, hic.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Dolores eaque quasi, consectetur minus ipsa sequi eos. 
+                        Soluta ipsam blanditiis quam 
+                        mollitia sint 
+                        laboriosam iste enim reiciendis corporis debitis. Minima, hic.
+                    </p>
+                   
+                   
+                </div>
+    </div> 
+
+{%endblock%}

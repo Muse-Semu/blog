@@ -1,0 +1,63 @@
+{%extends 'blog/base.html'%}
+{%block content%}
+
+<div style="display: block;max-width:320">
+    <div class="head-bar">
+        <h1>Users List </h1>
+        <h1>{{ct}} user</h1>
+        <a id="add-icon" href="{%url 'add-user'%}">&#x2b;Add User</a>
+    </div >
+
+<div class="table-view">
+        <table cellpadding="20" cellspacing="1" 
+        bgcolor="transparent" align="center" > 
+            <tr id="th" style="background-color: black;">
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Operation</th>
+                <th>Permissions</th>
+            </tr>
+            {%for user in user%}
+          <tr>  
+                <td>
+                    <h3>{{user.id }}</h3>
+                </td>  
+                <td>
+                    {%if not user.is_superuser%}
+                <a href="{%url 'edit_user' user.id%}"> {{user.username}}</a> 
+                {%else%}
+                <h3>{{user.username}}</h3>
+                {%endif%}
+                </td>
+                <td>
+                    <h3>{{user.email}}</h3>
+                </td>
+                
+                <td>
+                    {%if not user.is_superuser%}
+                    <a href="{%url 'delete-user' user.id%}">Delete</a> <br>
+                    {%endif%}
+                </td>
+            <td>
+                {%if user.is_superuser%}
+            <h3>Superuser</h3>
+            {%elif user.is_staff%}
+            <h3>Staff</h3>
+            {%elif user.is_active%}
+            <h3>Active</h3>
+            {%else%}
+            <h3 style="color:red">Deactivated</h3>
+            {%endif%}
+            </td>
+
+            </tr>
+            {% empty %}
+            <h3>No user</h3> 
+           
+            {%endfor%}
+            
+        </table>
+</div>
+</div>
+    {%endblock%}

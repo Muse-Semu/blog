@@ -1,0 +1,34 @@
+{% extends 'blog/base.html'%}
+{%block content%}
+
+<div>
+  
+</div>
+<div style="display:grid" >
+    <div class="head-bar">
+        <h1>Comments</h1>
+     <a id="add-icon" href="{%url 'add-comment' id%}">&#x2b;Add comment</a>
+     <a href="{%url 'userpost'%}">&#8592;Back</a>  
+    </div>
+    {%for comment in comment%}
+    <div style="color:azure" class="comment-section">
+        <div class="comment-user"> 
+            <img src="{{comment.user.profile.photo.url}}" alt="" id="pro-pic"
+            width="40" height="40">
+            <b> {{comment.user|title}} </b><p></p>
+            <strong> {{comment.date_added}}</strong>
+        </div>
+
+        <div>
+            {{comment.body}}
+        </div>
+
+
+    </div>
+    {%endfor%}
+   
+    <h1>{{comment.post}}</h1> 
+    
+</div>
+
+{%endblock%}

@@ -1,0 +1,20 @@
+{%extends 'blog/base.html'%}
+{%block content%}
+
+<body>
+    <div class="loginbox">
+     <div class="head-bar">
+        <h1 >Login here</h1>
+        <a href="{%url 'home'%}">&#8592;Back</a>
+     </div>
+     <form action="" method="post" >
+         {%csrf_token%}
+         {{form.as_p}}
+         <span><p id="error"></p></span>
+         <input type="submit" name="sub" id="subm" value="Login">
+         <!-- <input type="reset" name="reset" id="btn" value="Clear"> -->
+         <p>Don't have an account? <a href="{% url 'signup'%}">Register</a></p>
+     </form>
+    </div>
+ </body>
+{%endblock%}
