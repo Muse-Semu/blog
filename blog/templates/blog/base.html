@@ -18,6 +18,7 @@ body{
     flex-direction: column;
     flex-wrap: wrap;
     width: 100%;
+    background-color: #000000;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -183,7 +184,7 @@ tr{
     text-transform: uppercase;
 }
 .loginbox{
-    max-width: 600px;
+    max-width: fit-content;
     margin: auto;
     padding: 2rem;
     border-radius: 1rem;
@@ -203,10 +204,11 @@ tr{
     border: #14cf3d solid 1px;
     color: #cecbd8;
 }
-p,label{
+label{
      padding: 10px; 
      color: #ebeaec;
 } 
+
 .head-post{
     margin-top: 6px;
     display: flex;
@@ -313,9 +315,11 @@ footer img{
 a:active,#subm:active{
     opacity: 0.6;
 }
-.catagory{
-    margin: 2rem auto;
+.catagory{ 
+   margin:0.5rem auto;
     text-align: center;
+    background-color: rgba(236, 214, 225, 0.1);
+    padding: .5rem;
 }
 .catagory a{
     margin-top: 1rem ;
@@ -323,6 +327,7 @@ a:active,#subm:active{
     padding:0.5rem;
     transition: 0.6s;
     color: rgb(171, 84, 211);
+    outline-color: #14cf3d;
 } 
 .catagory a:hover{
     color: greenyellow;
@@ -345,7 +350,7 @@ a:active,#subm:active{
     transition: 1s;
 }
 .articles{
-    color: #120055;
+    color: #f4f2f8;
     width: 650px;
     height: auto;
     margin: auto;  
@@ -425,7 +430,7 @@ figcaption a:hover{
             </div>
             <div class="actions">
                 {%if request.user.is_authenticated%}
-                <h6><strong>Logged in as</strong><b> {{user.username}}</b></h6></small>
+                <h6><strong>Logged in as</strong><b> {{request.user}}</b></h6></small>
                 {%endif%}
                 <br>
                <a id="home" href="{%url 'home'%}">Home</a>

@@ -1,4 +1,5 @@
 {%extends 'blog/base.html'%}
+{%load crispy_forms_tags%}
 {%block content%}
 <body>
    <div class="loginbox">
@@ -9,20 +10,7 @@
    
     <form action="" method="post">
         {%csrf_token%}
-        <p><label for="">{{form.username.label}}</label>
-        {{form.username}}</p>
-        <p><label for="">{{form.first_name.label}}</label>
-            {{form.first_name}}</p>
-            <p><label for="">{{form.last_name.label}}</label>
-                {{form.last_name}}</p>
-        <p><label for="">{{form.email.label}}</label>
-            {{form.email}}</p>
-        <p><label for="">{{form.password1.label}}</label>
-            {{form.password1}}</p>
-        <label for="">{{form.password2.label}}</label><br>
-                {{form.password2}}
-                <br><br>
-            
+        {{form|crispy}}
         <input type="submit" name="sub" id="subm"  value="Register">
         {%if not user.is_authenticated%}
         <p>Do you have an account already? <a href="{%url 'login'%}">Login Now</a></p>

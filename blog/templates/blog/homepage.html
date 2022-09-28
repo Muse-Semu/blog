@@ -32,7 +32,6 @@
             <input type="submit" id="subm" value="Search">
         </div>
     </form>
-   
    <div class="catagory">
    <a href="{%url 'post-catagory' 'sports'%}">Sports</a>
    <a href="{%url 'post-catagory' 'fashion'%}">Fashion</a>
@@ -42,6 +41,7 @@
    <a href="{%url 'post-catagory' 'technology'%}">Technology</a>
    </div>
    
+</form>
     <div class="row">
         {%if post%}
         {%for post in post%}
@@ -81,7 +81,7 @@
                 <figcaption>
                     <h2 class="card-title" style="color:rgb(90, 236, 6)">
                         {{post.title|title}}</h2> 
-                   <p class="disc">{{post.discription}}</p>
+                   <p style="color:#ebf1eb;">{{post.discription}}</p>
                    {%if request.user.is_superuser%}
                    <a href="{%url 'delete_post' post.id%}">Delete</a> |
                    <a href="{%url 'edit_user' post.user.id%}">Get user</a>

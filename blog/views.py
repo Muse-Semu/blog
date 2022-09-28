@@ -2,6 +2,7 @@ from ctypes import LibraryLoader
 from importlib.util import LazyLoader
 from multiprocessing import context
 from multiprocessing.util import is_exiting
+from . import models
 from re import template
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Post,Profile,Comment
@@ -57,7 +58,7 @@ class LoginUser(LoginView):
 class PostCreate(LoginRequiredMixin,CreateView):
     template_name='blog/post_form.html'
     model=Post
-    fields=['title','image','discription','catagory']
+    fields=['title','image','discription','body','catagory']
     success_url=reverse_lazy('userpost')
     def form_valid(self,form): 
          form.instance.user=self.request.user
@@ -66,6 +67,7 @@ class UserRegister(UserRegistrationForm,FormView):
     template_name="blog/signup.html"
     form_class=UserRegistrationForm
     redirect_authenticated_user=True
+    fields=('username','email','password1','password2')
     success_url=reverse_lazy('signup')
     def form_valid(self, form): 
          user = form.save()
@@ -105,7 +107,7 @@ class PostDelete(LoginRequiredMixin,DeleteView):
     success_url=reverse_lazy('home')  
 class PostUpdate(LoginRequiredMixin,UpdateView):
     model=Post
-    fields=('title','discription','image','catagory')
+    fields=('title','discription','body','image','catagory')
     success_url=reverse_lazy('userpost')
 class PostDetail(DetailView):
     model=Post
@@ -130,13 +132,16 @@ class AddPostComment(LoginRequiredMixin,CreateView):
             form.instance.user=self.request.user
         return super().form_valid(form)
 class PostComment(ListView):
-    model=Comment 
+    model=Comment
     context_object_name='comment'  
     template_name='blog/post_comment.html'
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         context['comment']=context['comment'].filter(post_id=self.kwargs['pk'])
         context['id']=self.kwargs['pk']
+        cm=Comment.objects.all()
+        context['user']=cm
+        
         return context
 @login_required
 def profile(request):

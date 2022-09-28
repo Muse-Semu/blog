@@ -3,6 +3,7 @@ from distutils.command.upload import upload
 from distutils.filelist import FileList
 from django.db import models
 from django.contrib.auth.models import User
+from  ckeditor.fields import RichTextField
 post_catagory=[
     ('sports','Sports'),
     ('technology','Technology'),
@@ -17,6 +18,7 @@ class Post(models.Model):
               null=True,blank=True)
     title=models.CharField(max_length=200)
     discription=models.TextField(null=True,blank=True)
+    body=RichTextField(blank=True, null=True)
     created=models.DateTimeField(auto_now_add=True)
     image=models.ImageField(null=True,blank=True,upload_to='image')
     catagory=models.CharField(max_length=200,choices=post_catagory)

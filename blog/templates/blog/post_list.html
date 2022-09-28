@@ -26,7 +26,14 @@
         <input type="submit" id="subm" value="Search">
     </div>
 </form>   
-     
+<div class="catagory">
+    <a href="{%url 'post-catagory' 'sports'%}">Sports</a>
+    <a href="{%url 'post-catagory' 'fashion'%}">Fashion</a>
+    <a href="{%url 'post-catagory' 'science'%}">Science</a>
+    <a href="{%url 'post-catagory' 'music'%}">Music</a>
+    <a href="{%url 'post-catagory' 'movies'%}">Movies</a>
+    <a href="{%url 'post-catagory' 'technology'%}">Technology</a>
+    </div>
 <div class="post-body">  
     <div class="row">
         {%if post%}
@@ -46,7 +53,7 @@
                 <div class="card-body">
                     <figcaption>
                     <h1 class="card-title">{{post.title}}</h1> 
-                   <p class="disc">{{post.discription}}</p>
+                   <p style="color: rgb(247, 246, 246);">{{post.discription}}</p>
                     <a href="{%url 'post-update' post.id%}">Update</a> |
                     <a href="{%url 'delete_post' post.id%}">Delete</a>
 

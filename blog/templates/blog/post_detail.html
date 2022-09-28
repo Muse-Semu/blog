@@ -5,6 +5,12 @@
 <div class="head-bar">
 <h1>{{post.title}} <br> <small>by {{post.user}}</small> </h1>
 <h6>Added Time : {{post.created}}</h6>
+{%if request.user == post.user%}
+<div>
+<a href="{%url 'post-update' post.id%}">Edit |</a>
+<a href="{%url 'delete_post' post.id%}">Delete</a>
+</div>
+{%endif%}
 <a href="{%url 'home'%}">&#8592;Back</a>
 </div>
     <div class="detail">
@@ -14,39 +20,10 @@
             </div>
             
                <div class="articles"  >
-                <h2 style="color:red"> {{post.discription}}</h2>
-                    <p>
-                        
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Dolores eaque quasi, consectetur minus ipsa sequi eos. 
-                        Soluta ipsam blanditiis quam 
-                        mollitia sint 
-                        laboriosam iste enim reiciendis corporis debitis. Minima, hic.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Dolores eaque quasi, consectetur minus ipsa sequi eos. 
-                        Soluta ipsam blanditiis quam 
-                        mollitia sint 
-                        laboriosam iste enim reiciendis corporis debitis. Minima, hic.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Dolores eaque quasi, consectetur minus ipsa sequi eos. 
-                        Soluta ipsam blanditiis quam 
-                        mollitia sint 
-                        laboriosam iste enim reiciendis corporis debitis. Minima, hic.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Dolores eaque quasi, consectetur minus ipsa sequi eos. 
-                        Soluta ipsam blanditiis quam 
-                        mollitia sint 
-                        laboriosam iste enim reiciendis corporis debitis. Minima, hic.
-                    </p>
-                   
-                   
+                <h2 style="color:rgb(240, 9, 9)"> {{post.discription}}</h2>
+                   <p>{{post.body}}</p>
                 </div>
+               
     </div> 
 
 {%endblock%}
