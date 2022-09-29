@@ -9,117 +9,141 @@
 {%block content %}
 
 {%if result and post%}
-   <div class="head-bar">
-    <h1><i>{{result}} result{{result|pluralize}}</i> for {{search}}</h1>
-    <a id="add-icon" href="{%url 'post-create'%}">
-        &#x2b; Add post</a>
-   </div>
+<div class="head-bar">
+<h1><i>{{result}} result{{result|pluralize}}</i> for {{search}}</h1>
+<a id="add-icon" href="{%url 'post-create'%}">
+    &#x2b; Add post</a>
+</div>
 {%elif post%}
 <div class="head-bar">
-    <h1><i>{{count}} Post{{count|pluralize}}</i> here</h1>
-    {%if request.user.is_superuser%}
-    <a id="add-icon" href="{%url 'users'%}">Manage User</a>
-    {%endif%}
-    <a id="add-icon" href="{%url 'post-create'%}">
-        &#x2b; Add post</a>
-   </div>
+<h1><i>{{count}} Post{{count|pluralize}}</i> here</h1>
+{%if request.user.is_superuser%}
+<a id="add-icon" href="{%url 'users'%}">Manage User</a>
 {%endif%}
+<a id="add-icon" href="{%url 'post-create'%}">
+    &#x2b; Add post</a>
+</div>
+{%endif%}
+
 <div class="post-body">
-    <form action="" method="get">  
-        <div class="searching">
-            <input  type="text" name="search-area" class="text"
-            placeholder="search posts here" >
-            <input type="submit" id="subm" value="Search">
-        </div>
-    </form>
-   <div class="catagory">
-   <a href="{%url 'post-catagory' 'sports'%}">Sports</a>
-   <a href="{%url 'post-catagory' 'fashion'%}">Fashion</a>
-   <a href="{%url 'post-catagory' 'science'%}">Science</a>
-   <a href="{%url 'post-catagory' 'music'%}">Music</a>
-   <a href="{%url 'post-catagory' 'movies'%}">Movies</a>
-   <a href="{%url 'post-catagory' 'technology'%}">Technology</a>
-   </div>
-   
+
+<div class="catagory">
+<a href="{%url 'post-catagory' 'sports'%}">Sports</a>
+<a href="{%url 'post-catagory' 'fashion'%}">Fashion</a>
+<a href="{%url 'post-catagory' 'science'%}">Science</a>
+<a href="{%url 'post-catagory' 'music'%}">Music</a>
+<a href="{%url 'post-catagory' 'movies'%}">Movies</a>
+<a href="{%url 'post-catagory' 'technology'%}">Technology</a>
+<form action="" method="get">  
+    <div class="searching">
+        <input  type="text" name="search-area" class="text"
+        placeholder="search posts here" >
+        <input type="submit" id="subm" value="Search">
+    </div>
 </form>
-    <div class="row">
-        {%if post%}
-        {%for post in post%}
-        <div class="col">
-            <a href="{%url 'post-detail' post.id%}">
-            <div class="card" style="width:350px; ">
-                <div class="head-post">
-                    {%if post.user.profile.photo.url%}
-                    <div>
-                        <h6> <img src="{{post.user.profile.photo.url}}" alt=""
-                            width="40" height="40" id="pro-pic">
-                            {% if request.user == post.user %}
-                            <strong>You</strong>
-                            {%else%}
-                            <strong>{{post.user|title}}</strong>
-                            {%endif%}
-                        </h6>
-                    </div>
-                    {%else%}
-                    <div>
-                        <h6> <img src="/media/image/defualt.png" alt=""
-                            width="50" height="50" id="pro-pic">
-                            <strong>{{post.user|title}}</strong>
-                        </h6>
-                    </div>
-                    
-                    {%endif%}
-                    <div style="width:100%;margin: auto;">
-                        <h6><b>{{post.catagory|title}}</b> | Posted on 
-                            <strong>{{post.created|date}}</strong></h6>
-                    </div>
-                    
-                </div>
-                <br>
-                <img src="{{post.image.url}}" alt="" id="posted-image" >
-                <div class="card-body">
-                <figcaption>
-                    <h2 class="card-title" style="color:rgb(90, 236, 6)">
-                        {{post.title|title}}</h2> 
-                   <p style="color:#ebf1eb;">{{post.discription}}</p>
-                   {%if request.user.is_superuser%}
-                   <a href="{%url 'delete_post' post.id%}">Delete</a> |
-                   <a href="{%url 'edit_user' post.user.id%}">Get user</a>
-                   {%elif request.user == post.user%}
-                   <a href="{%url 'delete_post' post.id%}">Delete</a> |
-                   <a href="{%url 'post-update' post.id%}">Edit</a>
-                   {%endif%}
-                   <br>
-                 
-                  {%if post.comment.all%}
-                  <a href="{%url 'view-comment' post.pk%}">
-                    comments-{{post.comment.all.count}} 
-                  </a>
-                  {%else%}
-                 <small></small>
-                  {%endif%}
-    {%if not request.user == post.user%}
-        <a href="{%url 'add-comment' post.pk%}">Add Comment</a>
-        <form action="{%url 'like-post' post.id%}" method="post">
-            {%csrf_token%}
-            <button type="submit" name="lk" value="{{ post.id }}">
-                Like 
-            </button>
-            <b>{{like.count}}</b>
-         </form>
-    {%endif%}
-                </figcaption>
-                </div>
-            </a>
-            </div>
+</div>
+
+<div class="row">
+   {%if post%}
+   {%for post in post%}
+     <div class="col">
+    <a href="{%url 'post-detail' post.id%}">
+        <div class="card" style="width:350px; ">
+            <div class="head-post">
+            {%if post.user.profile.photo.url%}
+        <div>     
+        <h6> <img src="{{post.user.profile.photo.url}}" alt=""
+            width="40" height="40" id="pro-pic">
+        {% if request.user == post.user %}
+               <br> <strong>You</strong>
+        {%else%}
+                <strong>{{post.user|title}}</strong>
+        {%endif%}
+        </h6>
         </div>
-        {%endfor%}
+        {%else%}
+        <div>
+        <h6> <img src="/media/image/defualt.png" alt=""
+        width="50" height="50" id="pro-pic">
+        <strong>{{post.user|title}}</strong>
+        </h6>
+        </div>
+        {%endif%}
+        <div style="width:fit-content;margin: auto;font-size: 12px;">
+            <div class>
+                 <h6><b>{{post.catagory|title}}</b> | Posted on 
+                <strong>{{post.created}}   </strong><br>  last updated|
+                <strong>{{post.updated}}</strong>
+            </h6>
+        </div>
+        </div>
+        </div>      
+
+        <div class="gfg">
+       
+        <img src="{{post.image.url}}"} alt="" id="posted-image"> 
+
+        <h3 class="title-txt">
+                {{post.title|title}}
+        </h3> 
+        <h6 class="disc-txt">
+            {{post.discription}}
+        </h6>
+        </div>
+        <div class="post-bottom">        
+            {%if request.user.is_superuser%}
+            
+            <a href="{%url 'delete_post' post.id%}">Delete</a> |
+               {% if not request.user == post.user%}
+            <a href="{%url 'edit_user' post.user.id%}">Get user</a>
+                {%else%}
+                <a href="{%url 'post-update' post.id%}">Edit</a>
+                {%endif%}
+            {%elif request.user == post.user%}
+            <a href="{%url 'delete_post' post.id%}">Delete</a> |
+            <a href="{%url 'post-update' post.id%}">Edit</a>
+            {%endif%}
+            <br>
+            {%if post.comment.all%}
+            <a href="{%url 'view-comment' post.pk%}">
+            comments-{{post.comment.all.count}} </a>
+            {%else%}
+            <small></small>
+            {%endif%}
+        <form action="{%url 'like-post'%}" method="post">
+            {%csrf_token%}
+            <input type="hidden" name="lk" value="{{ post.id }}">
+        {%if not request.user == post.user %}    
+          {%if not request.user in post.liked.all %}
+            <button  type="submit"><img width="20" height="20" src="/static/image/like.jpg" alt="">
+            <small>Like</small> </button>   
+             {%else%}
+            <button style="background-color: rgb(248, 67, 12);" class="unlike" type="submit">
+                <img width="20" height="20" src="/static/image/like.jpg" alt="">
+                <small>Like</small>
+            </button>
+            {%endif%}
+            <b>{{post.liked.count}}</b>
+          {%else%}
+          <h6>{{post.liked.count}} Likes  </h6>
+          {%endif%}  
+
+        </form>  
+        {%if not request.user == post.user%}
+           <a href="{%url 'add-comment' post.pk%}"> Comment</a>
+        {%endif%}
+      </div>
+</a>
     </div>
-    {%else%}
-    <div class="head-bar">
-        <h3>No results for {{search}}</h3>
-        <a href="{%url 'userpost'%}">&#8592;Back</a>
     </div>
-    {%endif%}
-    </div>
+    {%endfor%}
+</div>
+
+{%else%}
+<div class="head-bar">
+    <h3>No results for {{search}}</h3>
+    <a href="{%url 'userpost'%}">&#8592;Back</a>
+</div>
+{%endif%}
+</div>
 {%endblock%}

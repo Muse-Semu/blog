@@ -19,13 +19,6 @@
 
 {%endif%}
 
-    <form action="" method="get">
-    <div class="searching">
-        <input  type="text" name="search-area" class="text"
-        placeholder="search posts here" >
-        <input type="submit" id="subm" value="Search">
-    </div>
-</form>   
 <div class="catagory">
     <a href="{%url 'post-catagory' 'sports'%}">Sports</a>
     <a href="{%url 'post-catagory' 'fashion'%}">Fashion</a>
@@ -33,66 +26,79 @@
     <a href="{%url 'post-catagory' 'music'%}">Music</a>
     <a href="{%url 'post-catagory' 'movies'%}">Movies</a>
     <a href="{%url 'post-catagory' 'technology'%}">Technology</a>
+     <form action="" method="get">
+    <div class="searching">
+        <input  type="text" name="search-area" class="text"
+        placeholder="search posts here" >
+        <input type="submit" id="subm" value="Search">
     </div>
-<div class="post-body">  
-    <div class="row">
-        {%if post%}
-        {%for post in post%}
-        <a href="{%url 'post-detail' post.id%}">
-        <div class="col">
-            <div class="card" style="width:350px; height: 400;">
-                <h6> <img src="{{post.user.profile.photo.url}}" alt=""
-                    width="50" height="50" id="pro-pic">
-                    <strong>{{post.user|title}}</strong></h6>
-                <div class="head-post">
-                    <h6><b>{{post.catagory|title}}</b> | Posted on <strong>{{post.created|date}}</strong></h6>
-                </div>
-                <img src="{{post.image.url}}" alt="" id="posted-image" 
-                width="340" height="200">
+</form>   
+  </div>
+<div class="row">
+    {%if post%}
+    {%for post in post%}
+      <div class="col">
+     <a href="{%url 'post-detail' post.id%}">
+         <div class="card" style="width:350px; ">
+             <div class="head-post">
+             {%if post.user.profile.photo.url%}
+         <div>     
+         <h6> <img src="{{post.user.profile.photo.url}}" alt=""
+             width="40" height="40" id="pro-pic">
+         {% if request.user == post.user %}
+                <br> <strong>You</strong>
+         {%else%}
+                 <strong>{{post.user|title}}</strong>
+         {%endif%}
+         </h6>
+         </div>
+         {%else%}
+         <div>
+         <h6> <img src="/media/image/defualt.png" alt=""
+         width="50" height="50" id="pro-pic">
+         <strong>{{post.user|title}}</strong>
+         </h6>
+         </div>
+         {%endif%}
+         <div style="width:fit-content;margin: auto;font-size: 12px;">
+             <div class>
+                  <h6><b>{{post.catagory|title}}</b> | Posted on 
+                 <strong>{{post.created}}   </strong><br>  last updated|
+                 <strong>{{post.updated}}</strong>
+             </h6>
+         </div>
+         </div>
+         </div>      
+ 
+         <div class="gfg">
+                <hr style="color:rgb(44, 129, 202);width:100%">
+                <img src="{{post.image.url}}"} alt="" id="posted-image"> 
 
-                <div class="card-body">
-                    <figcaption>
-                    <h1 class="card-title">{{post.title}}</h1> 
-                   <p style="color: rgb(247, 246, 246);">{{post.discription}}</p>
-                    <a href="{%url 'post-update' post.id%}">Update</a> |
-                    <a href="{%url 'delete_post' post.id%}">Delete</a>
+                <h3 class="title-txt">
+                        {{post.title|title}}
+                </h3> 
+                <h6 class="disc-txt">
+                    {{post.discription}}
+                </h6>
+         </div>
+         <div class="post-bottom">  
+            <a href="{%url 'delete_post' post.id%}">Delete</a> |
+            <a href="{%url 'post-update' post.id%}">Edit</a><br>      
+             <br>
+             {%if post.comment.all%}
+             <a href="{%url 'view-comment' post.pk%}">
+             comments-{{post.comment.all.count}} </a>
+             {%else%}
+             <small></small>
+             {%endif%}
+           <h6>{{post.liked.count}} Likes  </h6>
+         </form>  
+       </div>
+ </a>
+     </div>
+     </div>
+     {%endfor%}
+ </div>
+{%endif%}  
 
-                  {%if post.comment.all%}
-                  <a href="{%url 'view-comment' post.pk%}">
-                    comments-{{post.comment.all.count}} 
-                  </a>
-                  {%else%}
-                 <small> {%if post.comment.all%}
-                    <a href="{%url 'view-comment' post.pk%}">
-                      comments-{{post.comment.all.count}} 
-                    </a>
-                    {%else%}
-                   <small></small>
-                    {%endif%}
-                   <form action="{%url 'like-post' post.id%}" method="post">
-                      {%csrf_token%}
-                      <button type="submit" name="lk" value="{{ post.id }}">
-                          Likes 
-                      </button>
-                      <b>{{like.count}}</b>
-                   </form>
-                  
-                  </small>
-                  {%endif%}
-                </figcaption>
-                </div>
-            </a>
-            </div>
-        </div>
-        {%endfor%}
-    </div>
-    </div>
-    {%else%}
-    <p></p>
-    <div class="head-bar">
-        <p>You havan't posted anything yet</p>
-        <a id="add-icon" href="{%url 'post-create'%}">Add post &#x2b;</a>
-    </div>
-
-    {%endif%}  
 {%endblock%}

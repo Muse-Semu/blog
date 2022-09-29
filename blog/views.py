@@ -1,9 +1,4 @@
-from ctypes import LibraryLoader
-from importlib.util import LazyLoader
-from multiprocessing import context
-from multiprocessing.util import is_exiting
 from . import models
-from re import template
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Post,Profile,Comment
 from .forms import ProfileUpdateForm,UserUpdate,UserRegistrationForm,CommentForm
@@ -26,16 +21,18 @@ def PostCatagory(request,cats):
     post_catagory=Post.objects.filter(catagory=cats)
     post_count=Post.objects.filter(catagory=cats).count
     return render(request,'blog/catagory.html',{'cats':cats ,'post_catagory':post_catagory,'post_count':post_count})
-def LikeView(request,pk):
-   post=get_object_or_404(Post,id=request.POST.get('lk'))
-   post.like.add(request.user)
-   if request.user:
-      model=Post    
-      context_object_name='post'
-   else:
-        post.like.remove(request.user)   
-   return HttpResponseRedirect(reverse('home'))
+@login_required
+def like_post(request):
+    user=request.user
+    if request.method=='POST':
+       post_id=request.POST.get('lk') 
+       post_obj=Post.objects.get(id=post_id)
 
+       if user in post_obj.liked.all():
+         post_obj.liked.remove(user)
+       else:
+        post_obj.liked.add(user)  
+    return redirect('home')
 class HomePage(ListView):
     template_name='blog/homepage.html'
     model=Post
