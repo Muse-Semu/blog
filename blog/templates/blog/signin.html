@@ -10,7 +10,7 @@
      <form action="" method="post" >
          {%csrf_token%}
          {{form.as_p}}
-         <span><p id="error"></p></span>
+         <br>
          <input type="submit" name="sub" id="subm" value="Login">
          <!-- <input type="reset" name="reset" id="btn" value="Clear"> -->
          <p>Don't have an account? <a href="{% url 'signup'%}">Register</a></p>

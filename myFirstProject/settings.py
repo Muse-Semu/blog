@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
 from pathlib import Path
 import os
 from telnetlib import LOGOUT
@@ -45,7 +44,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -139,6 +138,6 @@ STATICFILES_DIRS = (
 )
 LOGIN_URL='login'
 LOGOUT_URL='login'
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
