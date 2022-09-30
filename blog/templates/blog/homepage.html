@@ -110,25 +110,8 @@
             {%else%}
             <small></small>
             {%endif%}
-        <form action="{%url 'like-post'%}" method="post">
-            {%csrf_token%}
-            <input type="hidden" name="lk" value="{{ post.id }}">
-        {%if not request.user == post.user %}    
-          {%if not request.user in post.liked.all %}
-            <button  type="submit"><img width="20" height="20" src="/static/image/like.jpg" alt="">
-            <small>Like</small> </button>   
-             {%else%}
-            <button style="background-color: rgb(248, 67, 12);" class="unlike" type="submit">
-                <img width="20" height="20" src="/static/image/like.jpg" alt="">
-                <small>Like</small>
-            </button>
-            {%endif%}
-            <b>{{post.liked.count}}</b>
-          {%else%}
-          <h6>{{post.liked.count}} Likes  </h6>
-          {%endif%}  
 
-        </form>  
+        
         {%if not request.user == post.user%}
            <a href="{%url 'add-comment' post.pk%}"> Comment</a>
         {%endif%}

@@ -27,6 +27,7 @@ class Post(models.Model):
     image=models.ImageField(null=True,blank=True,upload_to='image')
     catagory=models.CharField(max_length=200,choices=post_catagory)
     liked=models.ManyToManyField(User,default=None,related_name='liked',blank=True)
+    unliked=models.ManyToManyField(User,default=None,related_name='unliked',blank=True)
     def __str__(self):
         return self.title
     @property
@@ -43,14 +44,17 @@ class Like(models.Model):
     post=models.ForeignKey(Post,on_delete=models.CASCADE)
     value=models.CharField(choices=LIKE_CHOICES,default='like',max_length=10)
     def __str__(self):
-        return str(self.post)
-        
+         return str(self.post)
+class Dislike(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    post=models.ForeignKey(Post,on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.post)     
 class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     photo=models.ImageField(default='defualt.png',upload_to='image')
     def __str__(self):
         return f'{self.user} Profile'
-
 class Comment(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE, null=True,blank=True)
     post=models.ForeignKey(Post,related_name='comment',on_delete=models.CASCADE)
@@ -59,5 +63,5 @@ class Comment(models.Model):
     class Meta:
         ordering=['-date_added']
     def __str__(self):
-        return f'{self.post.title,self.user} '
+        return f'{self.post.title,self.user}'
 

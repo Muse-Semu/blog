@@ -33,6 +33,17 @@ def like_post(request):
        else:
         post_obj.liked.add(user)  
     return redirect('home')
+@login_required
+def unlike_post(request):
+    user=request.user
+    if request.method=='POST':
+       post_id=request.POST.get('unlk') 
+       post_obj=Post.objects.get(id=post_id)
+       if user in post_obj.unliked.all():
+         post_obj.unliked.remove(user)
+       else:
+        post_obj.unliked.add(user)  
+    return redirect('home')    
 class HomePage(ListView):
     template_name='blog/homepage.html'
     model=Post

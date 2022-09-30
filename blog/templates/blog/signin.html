@@ -1,4 +1,5 @@
 {%extends 'blog/base.html'%}
+{%load crispy_forms_tags%}
 {%block content%}
 
 <body>
@@ -9,7 +10,7 @@
      </div>
      <form action="" method="post" >
          {%csrf_token%}
-         {{form.as_p}}
+         {{form|crispy}}
          <br>
          <input type="submit" name="sub" id="subm" value="Login">
          <!-- <input type="reset" name="reset" id="btn" value="Clear"> -->
