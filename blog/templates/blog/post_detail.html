@@ -1,26 +1,27 @@
-{%extends 'blog/base.html'%}
+{%extends 'blog/base.html'%} {%block content%}
 
-{%block content%}
- 
 <div class="head-bar">
-<h1>{{post.title}} <br> <small>by {{post.user}}</small> </h1>
-<h6>Added Time : {{post.created}}</h6>
-{%if request.user == post.user%}
-<div>
-<a href="{%url 'post-update' post.id%}">Edit |</a>
-<a href="{%url 'delete_post' post.id%}">Delete</a>
+  <h1>
+    {{post.title}} <br />
+    <small>by {{post.user}}</small>
+  </h1>
+  <h6>Added Time : {{post.created}}</h6>
+  {%if request.user == post.user%}
+  <div>
+    <a href="{%url 'post-update' post.id%}">Edit |</a>
+    <a href="{%url 'delete_post' post.id%}">Delete</a>
+  </div>
+  {%endif%}
+  <a href="{%url 'home'%}">&#8592;Back</a>
 </div>
-{%endif%}
-<a href="{%url 'home'%}">&#8592;Back</a>
+<div class="detail">
+  <div class="post-image">
+    <img id="post-image" src="{{post.image.url}}" alt="" />
+  </div>
+  <div class="articles">
+    <h2 style="color: rgb(240, 9, 9)">{{post.discription}}</h2>
+    <p>{{post.body}}</p>
+  </div>
 </div>
-    <div class="detail">
-            <div class="post-image" >
-                <img id="post-image" src="{{post.image.url}}" alt="" >
-            </div>
-               <div class="articles"  >
-                <h2 style="color:rgb(240, 9, 9)"> {{post.discription}}</h2>
-                   <p>{{post.body}}</p>
-            </div>     
-    </div> 
 
 {%endblock%}
