@@ -7,8 +7,7 @@
 {%endblock%}
 {%endif%} 
 {%block content %}
-
-{%if result and post%}
+{%if search and post%}
 <div class="head-bar">
 <h1><i>{{result}} result{{result|pluralize}}</i> for {{search}}</h1>
 <a id="add-icon" href="{%url 'post-create'%}">
@@ -16,7 +15,7 @@
 </div>
 {%elif post%}
 <div class="head-bar">
-<h1><i>{{count}} Post{{count|pluralize}}</i> here</h1>
+<h1><i>{{count}} Post{{count|pluralize}}</i> {{cats|title}}</h1>
 {%if request.user.is_superuser%}
 <a id="add-icon" href="{%url 'users'%}">Manage User</a>
 {%endif%}
@@ -26,8 +25,8 @@
 {%endif%}
 
 <div class="post-body">
-
 <div class="catagory">
+<a href="{%url 'post-catagory' 'all'%}">All</a>    
 <a href="{%url 'post-catagory' 'sports'%}">Sports</a>
 <a href="{%url 'post-catagory' 'fashion'%}">Fashion</a>
 <a href="{%url 'post-catagory' 'science'%}">Science</a>
@@ -42,7 +41,6 @@
     </div>
 </form>
 </div>
-
 <div class="row">
    {%if post%}
    {%for post in post%}
@@ -57,7 +55,7 @@
         {% if request.user == post.user %}
                <br> <strong>You</strong>
         {%else%}
-                <strong>{{post.user|title}}</strong>
+                <br><strong>{{post.user|title}}</strong>
         {%endif%}
         </h6>
         </div>
@@ -92,7 +90,6 @@
         </div>
         <div class="post-bottom">        
             {%if request.user.is_superuser%}
-            
             <a href="{%url 'delete_post' post.id%}">Delete</a> |
                {% if not request.user == post.user%}
             <a href="{%url 'edit_user' post.user.id%}">Get user</a>
@@ -110,10 +107,47 @@
             {%else%}
             <small></small>
             {%endif%}
+<div style="display:flex; justify-content:space-around;">
+    <form action="{%url 'like-post'%}" method="post">
+            {%csrf_token%}
+            <input type="hidden" name="lk" value="{{ post.id }}">
+        {%if not request.user == post.user %}    
+          {%if not request.user in post.liked.all %}
+            <button  type="submit"><img width="20" height="20" src="/static/image/like.jpg" alt="">
+            <small>Like</small> </button>   
+             {%else%}
+            <button style="background-color: rgb(248, 67, 12);" class="unlike" type="submit">
+                <img width="20" height="20" src="/static/image/like.jpg" alt="">
+                <small>Like</small>
+            </button>
+            {%endif%}
+            <b>{{post.liked.count}}</b>
+          {%else%}
+          <h6>{{post.liked.count}} Likes  </h6>
+          {%endif%}  
+    </form>  
 
-        
+    <form action="{%url 'unlike-post'%}" method="post">
+          {%csrf_token%}
+            <input type="hidden" name="unlk" value="{{ post.id }}">
+          {%if not request.user == post.user %}    
+            {%if not request.user in post.unliked.all %}
+            <button  type="submit" style="background-color:white;padding: 4px;">
+            Dislike </button>   
+            {%else%}
+            <button style="background-color: rgb(218, 25, 25); padding:4px" class="unlike" type="submit">
+             Disike
+            </button>
+             {%endif%}
+            <b>{{post.unliked.count}}</b>
+          {%else%}
+          <h6>{{post.unliked.count}} Dislikes  </h6>
+          {%endif%}  
+    </form>
+</div>      
+          
         {%if not request.user == post.user%}
-           <a href="{%url 'add-comment' post.pk%}"> Comment</a>
+           <a href="{%url 'add-comment' post.pk%}">Comment</a>
         {%endif%}
       </div>
 </a>
@@ -124,7 +158,13 @@
 
 {%else%}
 <div class="head-bar">
+    {%if search%}
     <h3>No results for {{search}}</h3>
+    {%else%}
+    <h3>No posts for {{cats}}</h3>
+    <a id="add-icon" href="{%url 'post-create'%}">
+        &#x2b; Add post</a>
+    {%endif%}    
     <a href="{%url 'userpost'%}">&#8592;Back</a>
 </div>
 {%endif%}

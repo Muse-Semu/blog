@@ -22,6 +22,7 @@ urlpatterns=[
     path('view-comment/<int:pk>',views.PostComment.as_view(),name='view-comment'),
     path('users/',views.UserView.as_view(),name='users'),
     path('like-post/',views.like_post,name='like-post'),
+    path('unlike-post',views.unlike_post,name='unlike-post'),
     path('delete-user/<int:pk>',views.DeleteUser.as_view(),name='delete-user'),
     path('edit-user/<int:pk>',views.UpdateUserStatus.as_view(),name='edit_user'),
     path('add-user/',views.RegisterAdmin.as_view(),name='add-user'),

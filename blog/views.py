@@ -11,16 +11,24 @@ from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.urls import reverse_lazy,reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
-def frontpage(request):
-    posts=Post.objects.all()
-    return render(request,'blog/homepage.html',{'posts':posts}) 
+from django.http import HttpResponseRedirect 
 def about(request):
     return render(request,'blog/about.html')
 def PostCatagory(request,cats):
-    post_catagory=Post.objects.filter(catagory=cats)
-    post_count=Post.objects.filter(catagory=cats).count
-    return render(request,'blog/catagory.html',{'cats':cats ,'post_catagory':post_catagory,'post_count':post_count})
+    if(cats == 'all'):
+        post=Post.objects.all()
+        count=Post.objects.all().count
+    else:    
+        post=Post.objects.filter(catagory=cats)
+        count=Post.objects.filter(catagory=cats).count
+    search=request.GET.get('search-area') or ''
+    if search:
+            post=post.filter(title__icontains=search ) 
+            result=post.filter(title__icontains=search).count()
+            sech=search 
+            return render(request,'blog/homepage.html',{'cats':cats ,'post':post,'count':count,
+            'result':result,'search':sech})
+    return render(request,'blog/homepage.html',{'cats':cats ,'post':post,'count':count,})
 @login_required
 def like_post(request):
     user=request.user
@@ -88,6 +96,7 @@ class UserRegister(UserRegistrationForm,FormView):
         return super(UserRegister,self).get(*args,*kwargs)
 class UserPosts(LoginRequiredMixin,ListView):
     model=Post
+    template_name='blog/homepage.html'
     context_object_name='post' 
     def get_context_data(self,**kwargs):
         context=super().get_context_data(**kwargs)
@@ -99,15 +108,7 @@ class UserPosts(LoginRequiredMixin,ListView):
             context['result']=context['post'].filter(title__icontains=search).count()
             context['search']=search
         return context            
-    def myPost(request):
-        posts=Post.objects.filter(user=request.user)
-        count=Post.objects.filter(user=request.user).count()  
-        search_re=request.GET.get('search-area') or ''
-        if search_re:
-            posts=Post.objects.filter(title__icontains=search_re) and Post.objects.filter(title__icontains=search_re)
-            count=Post.objects.filter(title__icontains=search_re).count()
-            posts['search']=search_re
-        return render(request,'blog/post_list.html',{'posts':posts,'count':count})     
+       
 class PostDelete(LoginRequiredMixin,DeleteView):
     model=Post
     template_name='blog/delete_post.html'

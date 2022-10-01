@@ -9,7 +9,7 @@
 <div class="loginbox">
     <form action="" method="post" class="edit-status-form">
         {%csrf_token%}
-        {{form|crispy}}
+        {{form|safe}}
         <input  type="submit" name="submit" id="subm" value="Save ">
     </form>
 </div>
