@@ -5,14 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{%block title%}{%endblock%}Dreams Blog</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
-        .post-form{
-            display:block;
-            margin: auto;
-            color: #120055;
-        }
-      
  *{
     box-sizing: border-box;
     margin: 0;
@@ -21,10 +14,15 @@
     text-decoration: none; 
 }
 .gfg {
-    margin: 3%;
+    margin: 5%;
     position: relative;
     color: rgb(72, 255, 0);
 }
+.post-form{
+            display:block;
+            margin: auto;
+            color: #120055;
+        }
 .title-txt {
     padding: 2px;
     position: absolute;
@@ -238,9 +236,7 @@ label{
      padding: 10px; 
      color: #ebeaec;
 } 
-
 .head-post{
-    margin-top: 6px;
     display: flex;
     color: red;
     justify-content: space-around;
@@ -346,9 +342,10 @@ footer img{
 }
 a:active,#subm:active{
     opacity: 0.6;
+    background-color: #aaddaa;
 }
 .catagory{ 
-   margin:0.5rem auto;
+    margin:0.5rem auto;
     text-align: center;
     background-color: rgba(236, 214, 225, 0.1);
     padding: .5rem;
@@ -364,30 +361,13 @@ a:active,#subm:active{
 .catagory a:hover{
     color: greenyellow;
     opacity: 0.8;
-    box-shadow:rgba(135, 228, 107, 0.5) -1px -1px 1px 0.1px;
 }
 .post-image{
     width: 50%;
 }
 a {
   outline: none;
-  text-decoration: none;
   padding: 2px 1px 0;
-}
-
-a:focus {
-  border-bottom: 1px solid;
-  background: #bae498;
-}
-
-a:hover {
-  border-bottom: 1px solid;
-  background: #cdfeaa;
-}
-
-a:active {
-  background: #265301;
-  color: #cdfeaa;
 }
 
 #post-image{
@@ -452,6 +432,15 @@ figcaption{
     flex-wrap: wrap;
     justify-content:center;
 }
+.comment{
+    background: linear-gradient(90deg,rgba(10, 120, 245, 0.6),
+    rgba(223, 195, 205, 0.6),rgba(228, 12, 228,0.7));
+    padding: 0.5rem;
+    color:rgb(229, 238, 229);
+    border-radius: 10%;
+    box-shadow: #ccc0c0 4px 5px 5px 0.5px;
+}
+
 </style>
 </head>
 <body>

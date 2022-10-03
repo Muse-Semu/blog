@@ -25,13 +25,16 @@
 {%endif%}
 <div class="post-body">
 <div class="catagory">
-<a href="{%url 'post-catagory' 'all'%}">All</a>    
-<a href="{%url 'post-catagory' 'sports'%}">Sports</a>
-<a href="{%url 'post-catagory' 'fashion'%}">Fashion</a>
-<a href="{%url 'post-catagory' 'science'%}">Science</a>
-<a href="{%url 'post-catagory' 'music'%}">Music</a>
-<a href="{%url 'post-catagory' 'movies'%}">Movies</a>
-<a href="{%url 'post-catagory' 'technology'%}">Technology</a>
+    <div id="navbar">
+<a href="{%url 'post-catagory' 'all'%}" class="btn">All</a>    
+<a href="{%url 'post-catagory' 'sports'%}" class="btn">Sports</a>
+<a href="{%url 'post-catagory' 'fashion'%}" class="btn">Fashion</a>
+<a href="{%url 'post-catagory' 'science'%}" class="btn">Science</a>
+<a href="{%url 'post-catagory' 'music'%}" class="btn">Music</a>
+<a href="{%url 'post-catagory' 'movies'%}" class="btn">Movies</a>
+<a href="{%url 'post-catagory' 'technology'%}" class="btn">Technology</a>
+</div>
+
 <form action="" method="get">  
     <div class="searching">
         <input  type="text" name="search-area" class="text"
@@ -93,6 +96,7 @@
                {% if not request.user == post.user%}
             <a href="{%url 'edit_user' post.user.id%}">Get user</a>
                 {%else%}
+                
                 <a href="{%url 'post-update' post.id%}">Edit</a>
                 {%endif%}
             {%elif request.user == post.user%}
@@ -100,12 +104,17 @@
             <a href="{%url 'post-update' post.id%}">Edit</a>
             {%endif%}
             <br>
+            <br>
             {%if post.comment.all%}
-            <a href="{%url 'view-comment' post.pk%}">
-            comments-{{post.comment.all.count}} </a>
+            <a class="comment" href="{%url 'view-comment' post.pk%}">
+            Comments-{{post.comment.all.count}} </a>
             {%else%}
             <small></small>
             {%endif%}
+            {%if not request.user == post.user%}
+            <a class="comment" href="{%url 'add-comment' post.pk%}">&#x2b; Add Comment</a>
+         {%endif%}
+            <br><br>
 <div style="display:flex; justify-content:space-around;">
     <form action="{%url 'like-post'%}" method="post">
             {%csrf_token%}
@@ -124,6 +133,7 @@
           {%else%}
           <h6>{{post.liked.count}} Likes  </h6>
           {%endif%}  
+          <br><br>
     </form>  
 
     <form action="{%url 'unlike-post'%}" method="post">
@@ -143,12 +153,8 @@
           <h6>{{post.unliked.count}} Dislikes  </h6>
           {%endif%}  
     </form>
-</div>      
-          
-        {%if not request.user == post.user%}
-           <a href="{%url 'add-comment' post.pk%}">Comment</a>
-        {%endif%}
-      </div>
+</div >      
+</div>
 </a>
     </div>
     </div>
@@ -160,7 +166,7 @@
     {%if search%}
     <h3>No results for {{search}}</h3>
     {%else%}
-    <h3>No posts for {{cats}}</h3>
+    <h3>No posts for {{cats|title}}</h3>
     <a id="add-icon" href="{%url 'post-create'%}">
         &#x2b; Add post</a>
     {%endif%}    
