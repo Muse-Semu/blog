@@ -71,7 +71,7 @@
         {%endif%}
         <div style="width:fit-content;margin: auto;font-size: 12px;">
             <div class>
-                 <h6><b>{{post.catagory|title}}</b> | Posted on 
+                 <h6><b>{{post.catagory|title}}</b> Posted on 
                 <strong>{{post.created}}   </strong><br>  last updated|
                 <strong>{{post.updated}}</strong>
             </h6>
@@ -96,12 +96,13 @@
                {% if not request.user == post.user%}
             <a href="{%url 'edit_user' post.user.id%}">Get user</a>
                 {%else%}
-                
                 <a href="{%url 'post-update' post.id%}">Edit</a>
                 {%endif%}
             {%elif request.user == post.user%}
+            <div>
             <a href="{%url 'delete_post' post.id%}">Delete</a> |
             <a href="{%url 'post-update' post.id%}">Edit</a>
+            </div>
             {%endif%}
             <br>
             <br>
