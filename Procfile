@@ -1,1 +1,1 @@
-web: gunicorn myFirstProject.wgsi
+web: myFirstProject.wgsi
