@@ -1,18 +1,29 @@
 {%extends 'blog/base.html'%} {%block content%}
 
 <div class="head-bar">
-  <h1>
+  <h3>
     {{post.title}} <br />
     <small>by {{post.user}}</small>
-  </h1>
+  </h3>
   <h6>Added Time : {{post.created}}</h6>
   {%if request.user == post.user%}
   <div>
     <a href="{%url 'post-update' post.id%}">Edit |</a>
     <a href="{%url 'delete_post' post.id%}">Delete</a>
   </div>
+ {%endif%}
+ 
+  {%if not request.user == post.user%}
+  <div>
+    <a href="{%url 'add-comment' post.id%}">&#x2b;Add Comment</a>
+  </div>
   {%endif%}
+
+  <a class="" href="{%url 'view-comment' post.pk%}">
+  Comments-{{post.comment.all.count}} </a>
+
   <a href="{%url 'home'%}">&#8592;Back</a>
+ 
 </div>
 <div class="detail">
   <div class="post-image">
@@ -22,6 +33,7 @@
     <h2 style="color: rgb(240, 9, 9)">{{post.discription}}</h2>
     <p>{{post.body}}</p>
   </div>
+  
 </div>
 
 {%endblock%}

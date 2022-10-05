@@ -1,0 +1,12 @@
+{%extends 'blog/base.html'%}
+{%block content%}
+<div class="head-bar">
+    <h3>Reply</h3>
+</div>
+{% for reply in rp%}
+<div class="comment-user">
+    <img  id="pro-pic" src="{{reply.user.profile.photo.url}}" alt="" width="20" height="20">
+<h5>{{reply.user}}  {{reply.reply}}</h5>
+</div>
+{%endfor%}
+{%endblock%}

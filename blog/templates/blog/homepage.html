@@ -104,17 +104,9 @@
             <a href="{%url 'post-update' post.id%}">Edit</a>
             </div>
             {%endif%}
-            <br>
-            <br>
-            {%if post.comment.all%}
+           <br><br>
             <a class="comment" href="{%url 'view-comment' post.pk%}">
             Comments-{{post.comment.all.count}} </a>
-            {%else%}
-            <small></small>
-            {%endif%}
-            {%if not request.user == post.user%}
-            <a class="comment" href="{%url 'add-comment' post.pk%}">&#x2b; Add Comment</a>
-         {%endif%}
             <br><br>
 <div style="display:flex; justify-content:space-around;">
     <form action="{%url 'like-post'%}" method="post">

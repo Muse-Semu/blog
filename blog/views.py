@@ -1,6 +1,6 @@
 from . import models
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Post,Profile,Comment
+from .models import Post,Profile,Comment,ReplyComment
 from .forms import ProfileUpdateForm,UserUpdate,UserRegistrationForm,CommentForm
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -107,8 +107,7 @@ class UserPosts(LoginRequiredMixin,ListView):
             context['post']=context['post'].filter(title__icontains=search ) 
             context['result']=context['post'].filter(title__icontains=search).count()
             context['search']=search
-        return context            
-       
+        return context             
 class PostDelete(LoginRequiredMixin,DeleteView):
     model=Post
     template_name='blog/delete_post.html'
@@ -148,9 +147,6 @@ class PostComment(ListView):
         context=super().get_context_data(**kwargs)
         context['comment']=context['comment'].filter(post_id=self.kwargs['pk'])
         context['id']=self.kwargs['pk']
-        cm=Comment.objects.all()
-        context['user']=cm
-        
         return context
 @login_required
 def profile(request):
@@ -211,3 +207,25 @@ class RegisterAdmin(LoginRequiredMixin,CreateView):
         return super(RegisterAdmin,self).get(*args,*kwargs)
 def about(request):
     return render(request,'blog/about.html')    
+
+class ReplyForComment(LoginRequiredMixin,CreateView):
+    model=ReplyComment
+    template_name='blog/add-reply.html'
+    fields=['reply']
+    context_object_name='reply'
+    success_url=reverse_lazy('userpost') 
+    def form_valid(self, form):
+        form.instance.comment_id=self.kwargs['pk']
+        if self.request.user.is_authenticated:
+            form.instance.user=self.request.user
+        return super().form_valid(form)
+class ReplyLists(ListView):
+    model=ReplyComment
+    context_object_name='reply'  
+    template_name='blog/reply_comment.html'
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context['rp']=context['reply'].filter(comment_id=self.kwargs['pk'])
+        context['id']=self.kwargs['pk']
+        print(context['id'])
+        return context        

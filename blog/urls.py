@@ -26,6 +26,8 @@ urlpatterns=[
     path('delete-user/<int:pk>',views.DeleteUser.as_view(),name='delete-user'),
     path('edit-user/<int:pk>',views.UpdateUserStatus.as_view(),name='edit_user'),
     path('add-user/',views.RegisterAdmin.as_view(),name='add-user'),
+    path('add-reply/<int:pk>',views.ReplyForComment.as_view(),name='add-reply'),
+    path('view-reply/<int:pk>',views.ReplyLists.as_view(),name='view-reply')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
