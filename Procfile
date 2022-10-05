@@ -1,1 +1,2 @@
-web: gunicorn mambuz.wsgi
+release: python manage.py migrate
+web: gunicorn myFirstProject.wsgi
