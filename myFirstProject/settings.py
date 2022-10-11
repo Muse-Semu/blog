@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 from telnetlib import LOGOUT
+from turtle import width
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-p(p*lk6!msv6gc#(i5t^td57(stpvny@-u4rjyhd8kwgy)=f**
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['bl5app.herokuapp.com/','127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -141,6 +142,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+CKEDITOR_CONFIGS = {
+    'default': {
+         'width':'fit-content',
+         'height':'fit-content',
+         'toolbar': 'Custom',
+         'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+        ]
+    }
+}
 LOGIN_URL='login'
 LOGOUT_URL='login'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

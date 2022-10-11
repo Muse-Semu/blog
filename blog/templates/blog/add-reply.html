@@ -1,8 +1,14 @@
-<h1 class="head-bar">
-    reply
-</h1>
+{%extends 'blog/base.html'%}
+{%block content%}
+<div class="head-bar">
+    <h1> Reply</h1>
+    <a href="{%url 'view-comment' 12%}">&#8592;Back</a>
+</div>
+
 <form action="" method="post">
     {%csrf_token%}
     {{form.as_p}}
-    <input type="submit" value="Ok">
+    <br>
+    <input type="submit" value="Reply">
 </form>
+{%endblock%}

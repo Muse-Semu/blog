@@ -65,11 +65,12 @@ class Comment(models.Model):
     def __str__(self):
         return f'{self.post.title,self.user}'
 
-class ReplyComment(models.Model):
+class Reply(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    comment=models.ForeignKey(Comment,on_delete=models.CASCADE)
+    comment=models.ForeignKey(Comment,related_name='reply',on_delete=models.CASCADE)
     reply=models.TextField()
     reply_date=models.DateTimeField(auto_now_add=True)
-
     def __str__(self):
-        return f'{self.comment,self.user}'
+        return f'{self.comment.body,self.user}'
+    class Meta:
+        ordering=['-reply_date']    

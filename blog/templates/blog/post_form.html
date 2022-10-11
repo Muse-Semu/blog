@@ -1,18 +1,33 @@
 {%extends 'blog/base.html'%}
+{%load crispy_forms_tags%}
 
 {%block content%}
-
+<head>
+    <style>
+      .head-bar{
+        margin-top: 0;
+        margin: auto;
+        box-shadow: rgb(231, 238, 224) 3px 3px 30px 0.6px;
+      }
+    </style>
+</head>
 <body>
-    
+   
     <div class="loginbox">
         <div class="head-bar">
-            <a href="{%url 'userpost'%}">&#8592;Back</a>
+            <h3>Post Form</h3>
+            <a id='add-icon' href="{%url 'userpost'%}">&#8592;Back</a>
         </div>
         <form action="" method="post" enctype="multipart/form-data">
             <div class="post-form">
                     {%csrf_token%}
-                    {{form.media}}
-                    {{form.as_p}}
+                    <div class="media">
+                        {{form.media}}
+                    </div>
+                    <div class="normal">
+                        {{form.as_p}}
+                    </div>
+                    <br>
           <input  type="submit" name="submit" id="subm" value="Save Post"><br><br>
             </div> 
         </form>

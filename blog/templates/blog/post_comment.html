@@ -2,13 +2,16 @@
 {%block content%}
 <head>
     <style>
+        .head-bar{
+            width: 80%;
+            margin: auto;
+        }
         .comment-section{
             color:azure;
             width: 80%;
             margin: auto;
             padding: 0.5rem;
             text-align: left;
-            box-shadow:rgb(60, 63, 57) 1px 2px 1px 0.01px;
         }
          .single-comment{
             background-color: rgba(5, 127, 235, 0.05);
@@ -26,8 +29,8 @@
             text-align: left;
            }
          .comment-body{
-            text-align: center;
             margin: auto;
+            max-width: 70%;
          }
     </style>
 </head>
@@ -54,10 +57,9 @@
                  <p>{{comment.body}}</p> 
                  <div>
                     <h5>
-                        <a href="{%url 'view-reply' comment.id%}">{{comment.reply.all.count}}Replies |</a>
+                        <a href="{%url 'view-reply' comment.id%}">{{comment.reply.count}} Replies |</a>
                         <a href="{%url 'add-reply' comment.id%}">Reply</a>
                     </h5>
-               
                 </div>
             </div>
     

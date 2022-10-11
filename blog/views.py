@@ -1,12 +1,13 @@
-from . import models
+from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Post,Profile,Comment,ReplyComment
+from .models import Post,Profile,Comment,Reply
 from .forms import ProfileUpdateForm,UserUpdate,UserRegistrationForm,CommentForm
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView,UpdateView,DeleteView,FormView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.urls import reverse_lazy,reverse
 from django.contrib.auth.decorators import login_required
@@ -147,7 +148,7 @@ class PostComment(ListView):
         context=super().get_context_data(**kwargs)
         context['comment']=context['comment'].filter(post_id=self.kwargs['pk'])
         context['id']=self.kwargs['pk']
-        return context
+        return context 
 @login_required
 def profile(request):
     if request.method =="POST":
@@ -209,7 +210,7 @@ def about(request):
     return render(request,'blog/about.html')    
 
 class ReplyForComment(LoginRequiredMixin,CreateView):
-    model=ReplyComment
+    model=Reply
     template_name='blog/add-reply.html'
     fields=['reply']
     context_object_name='reply'
@@ -220,12 +221,17 @@ class ReplyForComment(LoginRequiredMixin,CreateView):
             form.instance.user=self.request.user
         return super().form_valid(form)
 class ReplyLists(ListView):
-    model=ReplyComment
+    model=Reply
     context_object_name='reply'  
     template_name='blog/reply_comment.html'
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         context['rp']=context['reply'].filter(comment_id=self.kwargs['pk'])
         context['id']=self.kwargs['pk']
-        print(context['id'])
         return context        
+class ChangePassword(PasswordChangeView):
+    template_name='blog/change-password.html'
+    form_class=PasswordChangeForm
+    success_url=reverse_lazy('chang-success')
+def pass_success(request):
+    return render(request,'blog/success.html')

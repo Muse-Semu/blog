@@ -1,3 +1,4 @@
+from re import template
 from unicodedata import name
 from django.urls import path
 from .import views
@@ -5,6 +6,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 urlpatterns=[
     path('about/',views.about,name='about'),
     path('homepage/', views.HomePage.as_view(),name='home'),
@@ -18,7 +20,7 @@ urlpatterns=[
     path('post-update/<int:pk>',views.PostUpdate.as_view(),name='post-update'),
     path('post-detail/<int:pk>',views.PostDetail.as_view(),name='post-detail'),
     path('profile/',views.profile,name='profile'),
-    path('add-comment/<int:pk>/comment',views.AddPostComment.as_view(),name='add-comment'),
+    path('add-comment/<int:pk>',views.AddPostComment.as_view(),name='add-comment'),
     path('view-comment/<int:pk>',views.PostComment.as_view(),name='view-comment'),
     path('users/',views.UserView.as_view(),name='users'),
     path('like-post/',views.like_post,name='like-post'),
@@ -27,7 +29,9 @@ urlpatterns=[
     path('edit-user/<int:pk>',views.UpdateUserStatus.as_view(),name='edit_user'),
     path('add-user/',views.RegisterAdmin.as_view(),name='add-user'),
     path('add-reply/<int:pk>',views.ReplyForComment.as_view(),name='add-reply'),
-    path('view-reply/<int:pk>',views.ReplyLists.as_view(),name='view-reply')
+    path('view-reply/<int:pk>',views.ReplyLists.as_view(),name='view-reply'),
+    path('password/',views.ChangePassword.as_view(),name='change-password'),
+    path('pass_success',views.pass_success,name='chang-success'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -1,7 +1,55 @@
 {%extends 'blog/base.html'%}
 {%block title%}About  {%endblock%}
-<div class="actions">
- </div>
+
 {%block content%}
-    <h1>This about the developer of this blog</h1>
+<head>
+    <style>
+        .lv1{
+            width: 80%;
+            display: flex;
+            flex-wrap: wrap;
+            margin: auto;
+            box-shadow: rgb(231, 235, 227) 3px 3px 20px 0.4px;
+            border-spacing: 2px;
+        }
+        .lv2{
+            margin: auto;
+            box-shadow: rgb(231, 235, 227) 3px 3px 20px 0.4px;
+            width: 33.3%;
+           height: 400px;
+            padding: 1rem;
+        }
+        .para{
+            width: 50%;
+            margin: auto;
+        }
+    </style>
+</head>
+   <div class="lv1">
+        <div class="lv2">
+            <img id="pro-pic" src="" alt="" width="100" height="100">
+            <h3>Muse Semu</h3>
+            <a href="">smuse@gmail.com</a>
+        </div>
+        <div class="lv2">
+            <img id="pro-pic" src="" alt="" width="100" height="100">
+            <h3>Muse Semu</h3>
+            <a href="">smuse@gmail.com</a>
+        </div>
+        <div class="lv2">
+            <img id="pro-pic" src="" alt="" width="100" height="100">
+            <h3>Muse Semu</h3>
+            <a href="">smuse@gmail.com</a>
+        </div>
+        <div class="para">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                 Alias quaerat ut, ipsum distinctio praesentium beatae fugiat
+                  perferendis ex. Sunt, id. Qui pariatur rem dolorum nisi itaque!
+                 Cupiditate assumenda obcaecati consectetur.</p>
+                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Alias quaerat ut, ipsum distinctio praesentium beatae fugiat
+                     perferendis ex. Sunt, id. Qui pariatur rem dolorum nisi itaque!
+                    Cupiditate assumenda obcaecati consectetur.</p>
+        </div>
+   </div>
 {%endblock%}

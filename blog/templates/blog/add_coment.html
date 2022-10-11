@@ -1,5 +1,10 @@
 {%extends 'blog/base.html'%}
 {%block content%}
+<style>
+    .loginbox{
+        width:700px;
+    }
+</style>
 <div class="loginbox">
 
 
@@ -11,6 +16,7 @@
     <form action="" method="post">
         {%csrf_token%}
         {{form.as_p}}
+        <br>
         <input type="submit" name="" id="" value="Add Comment">
     </form>
 
