@@ -33,6 +33,7 @@ def PostCatagory(request,cats):
 @login_required
 def like_post(request):
     user=request.user
+    success_url=reverse_lazy('home')
     if request.method=='POST':
        post_id=request.POST.get('lk') 
        post_obj=Post.objects.get(id=post_id)
