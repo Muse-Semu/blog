@@ -32,6 +32,12 @@ urlpatterns=[
     path('view-reply/<int:pk>',views.ReplyLists.as_view(),name='view-reply'),
     path('password/',views.ChangePassword.as_view(),name='change-password'),
     path('pass_success',views.pass_success,name='chang-success'),
+    # this is urls for password reset
+    path('password_reset',auth_views.PasswordResetView.as_view(),name="password_reset"),
+    path('password_reset/done/',auth_views.PasswordResetDoneView.as_view(),name='password_reset_done'),
+    path('reset/uidb64/<token>',auth_views.PasswordResetConfirmView.as_view(),name='password_reset_confirm'),
+    path('reset/done',auth_views.PasswordResetCompleteView.as_view(),name='password_reset_complete'),
+    #the end of password reset urls
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

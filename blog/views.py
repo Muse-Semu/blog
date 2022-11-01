@@ -7,12 +7,13 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView,UpdateView,DeleteView,FormView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm,PasswordResetForm
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.urls import reverse_lazy,reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect 
+from django.contrib.auth import views as auth_views
 def about(request):
     return render(request,'blog/about.html')
 def PostCatagory(request,cats):
@@ -236,3 +237,8 @@ class ChangePassword(PasswordChangeView):
     success_url=reverse_lazy('chang-success')
 def pass_success(request):
     return render(request,'blog/success.html')
+
+class ResetPassword(auth_views.PasswordResetView):
+    template_name='registration/password_reset.html'
+    form_class=PasswordResetForm
+    

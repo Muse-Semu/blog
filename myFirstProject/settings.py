@@ -158,5 +158,6 @@ CKEDITOR_CONFIGS = {
 LOGIN_URL='login'
 LOGOUT_URL='login'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+EMAIL_BCKEND='django.core.mail.backends.console.Backends'
 # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 

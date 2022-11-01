@@ -1,5 +1,6 @@
 {%extends 'blog/base.html'%}
 {%load crispy_forms_tags%}
+{%block title%}login | {%endblock%}
 {%block content%}
 <head>
     <style>
@@ -20,8 +21,10 @@
          {{form|crispy}}
          <br>
          <input type="submit" name="sub" id="subm" value="Login">
+         <p><a href="{% url 'password_reset'%}">forgot password?</a></p>
          <!-- <input type="reset" name="reset" id="btn" value="Clear"> -->
          <p>Don't have an account? <a href="{% url 'signup'%}">Register</a></p>
+        
      </form>
     </div>
  </body>
