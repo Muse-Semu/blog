@@ -1,0 +1,28 @@
+{%extends 'blog/base.html'%}
+{%load crispy_forms_tags%}
+{%block content%}
+<head>
+    <style>
+      .loginbox{
+        width: 50%;
+        margin: auto;
+      }
+    </style>
+</head>
+<body>
+    <div class="loginbox">
+     <div class="head-bar">
+        <h1 >Login here</h1>
+        <a href="{%url 'home'%}">&#8592;Back</a>
+     </div>
+     <form action="" method="post" >
+         {%csrf_token%}
+         {{form|crispy}}
+         <br>
+         <input type="submit" name="sub" id="subm" value="Login">
+         <!-- <input type="reset" name="reset" id="btn" value="Clear"> -->
+         <p>Don't have an account? <a href="{% url 'signup'%}">Register</a></p>
+     </form>
+    </div>
+ </body>
+{%endblock%}

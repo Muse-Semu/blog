@@ -1,0 +1,15 @@
+{%extends 'blog/base.html'%}
+
+{%block content%}
+<div class="loginbox">
+<div class="head-bar">
+   <h1>Delete User {{user.username}}</h1>
+</div>
+<form action="" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    <input type="submit" value="Yes" />
+    
+</form>
+<a href="{%url 'users'%}">&#8592;No,Go back</a>
+</div>
+{%endblock%}

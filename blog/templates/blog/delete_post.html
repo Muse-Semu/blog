@@ -1,0 +1,18 @@
+{%extends 'blog/base.html'%}
+{%block content%}
+
+    <div class="loginbox">
+    <h1 class="head-bar">Delete Post</h1>
+    <form action="" method="post">
+        {%csrf_token%}
+    <h3>Are you sure to delete <i style="color:red; font-size:20px;">
+        {{post.title}}</i> </h3>
+        <div class="post-image" >
+            <img src="{{post.image.url}}" alt="No image " width="200" height="100">
+        </div>
+        <p><input type="submit" name="" id="subm" value="Yes, Delete"></p>
+    </form>
+   <p><a href="{%url 'userpost'%}">&#8592;No, Go back</a></p>  
+</div>
+
+{%endblock%}

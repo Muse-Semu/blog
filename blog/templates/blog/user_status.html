@@ -1,0 +1,17 @@
+{%extends 'blog/base.html'%}
+{%load crispy_forms_tags%}
+{%block content%}
+<div class="head-bar">
+    <h1>Manage User</h1>
+    <a href="{%url 'users'%}">&#8592;Back</a>
+</div >
+
+<div class="loginbox">
+    <form action="" method="post" class="edit-status-form">
+        {%csrf_token%}
+        {{form|safe}}
+        <input  type="submit" name="submit" id="subm" value="Save ">
+    </form>
+</div>
+
+{%endblock%}

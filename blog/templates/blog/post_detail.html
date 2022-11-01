@@ -1,0 +1,67 @@
+{%extends 'blog/base.html'%} {%block content%}
+<head>
+  <style>
+    .head-bar{
+      margin:auto;
+      width: 80%;
+    }
+    .detail{
+      margin:auto;
+      width: 80%;
+      display: flex;
+      box-shadow: whitesmoke 3px 3px 30px 0.1px;
+    }
+    #post-image{
+     
+      width: 100%;
+      height: 400px;
+    }
+    .articles{
+      width: 400px;
+
+    }
+    small{
+      color: rgb(221, 34, 34);
+    }
+    a{
+      color: greenyellow;
+    }
+  </style>
+</head>
+<div class="head-bar">
+  <h3>
+    {{post.title}} |<small>{{post.user}} <h6>{{post.created|date}}</h6></small> 
+  </h3>
+ 
+  {%if request.user == post.user%}
+  <div>
+    <a href="{%url 'post-update' post.id%}">Edit |</a>
+    <a href="{%url 'delete_post' post.id%}">Delete</a>
+  </div>
+ {%endif%}
+ 
+  {%if not request.user == post.user%}
+  <div>
+    <a id="add-icon" href="{%url 'add-comment' post.id%}">&#x2b;Add Comment</a>
+  </div>
+  {%endif%}
+
+  <a  href="{%url 'view-comment' post.pk%}">
+  Comments-{{post.comment.all.count}} </a>
+
+  <a id="add-icon" href="{%url 'home'%}">&#8592;Back</a>
+ 
+</div>
+<div class="detail">
+  <div class="post-image">
+    <img id="post-image" src="{{post.image.url}}" alt="" />
+  </div>
+  <div class="articles">
+    <h3 style="color: rgb(9, 240, 9)">{{post.discription}}</h3>
+    <hr>
+    <small>{{post.body|safe}}</small>
+  </div>
+  
+</div>
+
+{%endblock%}

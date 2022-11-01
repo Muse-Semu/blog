@@ -1,0 +1,62 @@
+{%extends 'blog/base.html'%}
+{%block content%}
+<head>
+    <style>
+        
+        .head-bar{
+            max-width: 80%;
+            margin: auto;
+        }
+        .reply-container{
+            display: block;
+            background-color: rgb(31, 30, 29);
+            max-width: 80%;
+            margin: auto;
+        }
+        .reply-user{
+            display: flex;
+        }
+        .single-reply{
+            background: transparent;
+            max-width: 100%;
+            padding: 1rem;
+            border-radius: 20px;
+            box-shadow: rgb(83, 70, 76) 0px 3px 15px 0.1px;
+        }
+    </style>
+</head>
+{%if rp%}
+<div class="head-bar">
+    <h3>Reply</h3>
+    <a id="add-icon" href="{%url 'view-comment' id%}">&#8592; Back</a>
+</div>
+
+{% for reply in rp%}
+<div class="reply-container">
+  <div class="single-reply">
+    <div class="reply-user">
+        <img  id="pro-pic" src="{{reply.user.profile.photo.url}}" alt="" width="30" height="30">
+        <h5 >{{reply.user}} </h5>
+    </div>
+    <div class="replay body">
+        <p>{{reply.reply}}</p>
+       
+    </div>
+   
+</div>  
+<div>
+    <a id="add-icon" href="{%url 'add-reply' id%}">&#x2b; Add Replay</a>
+    
+</div>
+</div>
+  
+   
+{%endfor%}
+{%else%}
+<div class="head-bar">
+    <h3>No Reply</h3>
+    <a id="add-icon" href="{%url 'add-reply' id%}">&#x2b; Add Replay</a>
+    <a id="add-icon" href="{%url 'view-comment' id%}">&#8592; Back</a>
+</div>
+{% endif %}
+{%endblock%}
